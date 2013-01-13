@@ -321,13 +321,13 @@ else
     ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
 fi
 
-mkdir -p /home/terminal/www/smartkiosk-mkb/shared/uploads
 rm -rf /home/terminal/www/smartkiosk-mkb/head/config/services
+mkdir -p /home/terminal/www/smartkiosk/head/tmp/pids
+mkdir -p /home/terminal/www/smartkiosk-mkb/shared/uploads
 mkdir -p /home/terminal/www/smartkiosk-mkb/shared/config
 ln -s /home/terminal/www/smartkiosk-mkb/head /home/terminal/www/smartkiosk-mkb/current
 ln -s /home/terminal/www/smartkiosk-mkb/shared/uploads /home/terminal/www/smartkiosk-mkb/head/public
 ln -s /home/terminal/www/smartkiosk-mkb/shared/config /home/terminal/www/smartkiosk-mkb/head/config/services
-
 
 cat << EOF > /home/terminal/www/smartkiosk-mkb/shared/config/application.yml
 keyword: SAD6
