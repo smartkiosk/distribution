@@ -450,7 +450,7 @@ else
 fi
 
 if ! "$VB"; then
-    echo -n "Populating database..."
+    echo -n "Populating database (takes about 10 minutes)..."
     cd /home/terminal/www/smartkiosk-mkb/current
 	sudo -u terminal bundle install --local > /dev/null 2>&1
     ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
