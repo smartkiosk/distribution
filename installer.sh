@@ -50,7 +50,6 @@ flash-plugin \
 "
 
 GEMS=" \
-bundler-1.2.3 \
 rake-10.0.3 \
 Ascii85-1.0.2 \
 i18n-0.6.1 \
@@ -143,7 +142,7 @@ sidekiq-2.5.3 \
 sinatra-1.3.3 \
 temple-0.5.5 \
 slim-1.3.4 \
-smartguard-0.2.6 \
+smartguard-0.2.9 \
 smartware-0.1.27 \
 sqlite3-1.3.6 \
 thin-1.5.0 \
