@@ -143,8 +143,8 @@ sidekiq-2.5.3 \
 sinatra-1.3.3 \
 temple-0.5.5 \
 slim-1.3.4 \
-smartguard-0.2.2 \
-smartware-0.1.25 \
+smartguard-0.2.6 \
+smartware-0.1.27 \
 sqlite3-1.3.6 \
 thin-1.5.0 \
 uglifier-1.3.0 \
