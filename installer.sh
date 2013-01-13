@@ -321,7 +321,7 @@ else
 fi
 
 rm -rf /home/terminal/www/smartkiosk-mkb/head/config/services
-mkdir -p /home/terminal/www/smartkiosk/head/tmp/pids
+mkdir -p /home/terminal/www/smartkiosk-mkb/head/tmp/pids
 mkdir -p /home/terminal/www/smartkiosk-mkb/shared/uploads
 mkdir -p /home/terminal/www/smartkiosk-mkb/shared/config
 ln -s /home/terminal/www/smartkiosk-mkb/head /home/terminal/www/smartkiosk-mkb/current
