@@ -321,14 +321,20 @@ else
     ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
 fi
 
+mkdir -p /home/terminal/www/smartkiosk-mkb/shared/uploads
+rm -rf /home/terminal/www/smartkiosk-mkb/head/config/services
+mkdir -p /home/terminal/www/smartkiosk-mkb/shared/config
 ln -s /home/terminal/www/smartkiosk-mkb/head /home/terminal/www/smartkiosk-mkb/current
+ln -s /home/terminal/www/smartkiosk-mkb/shared/uploads /home/terminal/www/smartkiosk-mkb/head/public
+ln -s /home/terminal/www/smartkiosk-mkb/shared/config /home/terminal/www/smartkiosk-mkb/head/config/services
 
-cat << EOF > /home/terminal/www/smartkiosk-mkb/current/config/config.yml
+
+cat << EOF > /home/terminal/www/smartkiosk-mkb/shared/config/application.yml
 keyword: SAD6
 host: http://admin.smartkiosk-mkb.rdlk.biz
 smartguard_host: druby://localhost:10000
 EOF
-cat << EOF > /home/terminal/www/smartkiosk-mkb/current/config/database.yml
+cat << EOF > /home/terminal/www/smartkiosk-mkb/shared/config/database.yml
 production:
   adapter: postgresql
   host: localhost
@@ -340,7 +346,7 @@ production:
   encoding: utf8
   pool: 30
 EOF
-cat << EOF > /home/terminal/www/smartkiosk-mkb/current/config/smartware.yml
+cat << EOF > /home/terminal/www/smartkiosk-mkb/shared/config/smartware.yml
 cash_acceptor_port: /dev/ttyS0
 cash_acceptor_driver: CCNET
 printer_port: /dev/ttyS4
