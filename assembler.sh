@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # this script fetches smartkiosk-mkb code and rubygems prerequisites,
-# assembles smartkiosk.tar.gz and copies it to buld host
+# assembles smartkiosk.tar.gz
 #
 
 echo -n "Cleaning things up..."
@@ -16,7 +16,7 @@ echo "OK"
 
 echo "Fetching recent smartkiosk-mkb code:"
 cd /root/assembler; git clone git@github.com:roundlake/smartkiosk-mkb.git
-cp -R /root/banners /root/assembler/smartkiosk-mkb/public
+cp -R /root/banners /root/assembler/smartkiosk-mkb/publica
 
 echo "Collecting gems:"
 rpm -Uvh /root/assembler/rpms/ruby*.rpm
@@ -33,8 +33,5 @@ echo "OK"
 echo -n "Compressing smartkiosk.tar.gz..."
 cd /root/assembler; tar czf ../smartkiosk.tar.gz .
 echo "OK"
-
-echo "Copying smartkiosk.tar.gz to build host:"
-scp -P 1046 /root/smartkiosk.tar.gz alex@cawok.pro:.
 
 echo; echo "All done!"
