@@ -40,11 +40,14 @@ postgresql-server \
 postgresql-devel \
 sqlite-devel \
 nginx \
+libXpm \
+libXaw \
 xterm \
 xorg-x11-server-utils \
 xinput_calibrator \
 x11vnc \
 xulrunner-last \
+redhat-bookmarks \
 firefox \
 flash-plugin \
 "
