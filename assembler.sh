@@ -18,7 +18,7 @@ echo "Fetching recent smartkiosk-mkb code:"
 cd /root/assembler; git clone git@github.com:roundlake/smartkiosk-mkb.git
 
 echo "Collecting gems:"
-rpm -Uvg /root/assembler/rpms/ruby*.rpm
+rpm -Uvh /root/assembler/rpms/ruby*.rpm
 gem install bundler
 cd /root/assembler/smartkiosk-mkb; bundle install
 
