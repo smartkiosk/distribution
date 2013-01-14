@@ -52,108 +52,6 @@ firefox \
 flash-plugin \
 "
 
-GEMS=" \
-rake-10.0.3 \
-Ascii85-1.0.2 \
-i18n-0.6.1 \
-multi_json-1.5.0 \
-activesupport-3.2.11 \
-builder-3.0.4 \
-activemodel-3.2.11 \
-erubis-2.7.0 \
-journey-1.0.4 \
-rack-1.4.1 \
-rack-cache-1.2 \
-rack-test-0.6.2 \
-hike-1.2.1 \
-tilt-1.3.3 \
-sprockets-2.2.2 \
-actionpack-3.2.11 \
-mime-types-1.19 \
-polyglot-0.3.3 \
-treetop-1.4.12 \
-mail-2.4.4 \
-actionmailer-3.2.11 \
-arel-3.0.2 \
-tzinfo-0.3.35 \
-activerecord-3.2.11 \
-activeresource-3.2.11 \
-afm-0.2.0 \
-carrierwave-0.7.1 \
-facter-1.6.17 \
-timers-1.0.2 \
-celluloid-0.12.4 \
-chunky_png-1.2.7 \
-ffi-1.3.1 \
-cmux-0.0.1 \
-coderay-1.0.8 \
-coffee-script-source-1.4.0 \
-execjs-1.4.0 \
-coffee-script-2.2.0 \
-haml-3.1.7 \
-coffee-filter-0.1.1 \
-rack-ssl-1.3.2 \
-json-1.7.6 \
-rdoc-3.12 \
-thor-0.16.0 \
-railties-3.2.11 \
-coffee-rails-3.2.2 \
-colored-1.2 \
-fssm-0.2.9 \
-sass-3.2.5 \
-compass-0.12.2 \
-compass-rails-1.0.3 \
-connection_pool-0.9.3 \
-daemons-1.1.9 \
-dante-0.1.5 \
-diff-lcs-1.1.3 \
-eventmachine-1.0.0 \
-ffaker-1.15.0 \
-haml_coffee_assets-1.10.0 \
-hashery-2.1.0 \
-i18n-js-2.1.2 \
-jquery-rails-2.1.4 \
-bundler-1.2.3 \
-rails-3.2.11 \
-joosy-1.0.0.RC6 \
-liquid-2.4.1 \
-machinist-2.0 \
-method_source-0.8.1 \
-ruby-rc4-0.1.5 \
-ttfunk-1.0.3 \
-pdf-reader-1.3.0 \
-pg-0.14.1 \
-prawn-0.12.0 \
-slop-3.3.3 \
-pry-0.9.10 \
-rack-protection-1.3.2 \
-rails-i18n-0.7.2 \
-recursive-open-struct-0.2.1 \
-redis-3.0.2 \
-redis-namespace-1.2.1 \
-redis-objects-0.6.1 \
-redis-semaphore-0.1.5 \
-rest-client-1.6.7 \
-rspec-core-2.12.2 \
-rspec-expectations-2.12.1 \
-rspec-mocks-2.12.1 \
-rspec-rails-2.12.0 \
-rubyzip-0.9.9 \
-rufus-scheduler-2.0.17 \
-sass-rails-3.2.5 \
-serialport-1.1.0 \
-sidekiq-2.5.3 \
-sinatra-1.3.3 \
-temple-0.5.5 \
-slim-1.3.4 \
-smartkiosk-common-0.0.2 \
-smartguard-0.2.10 \
-smartware-0.1.29 \
-sqlite3-1.3.6 \
-thin-1.5.0 \
-uglifier-1.3.0 \
-"
-
 TMPD=`mktemp -d /tmp/rdlk.XXXXXX`
 ARCH=`awk '/^___ARCHIVE_BELOW___/ { print NR + 1; exit 0; }' $0`
 
@@ -211,6 +109,8 @@ if [ -d /home/terminal/www/smartkiosk-mkb ] && ! "$FC" && ! "$PR"; then
     echo "Looks like Smartkiosk is already installed, exiting. You can try to use '--force' option though."
     exit 13
 fi
+
+. $TMPD/gems.list
 
 if ! "$VB"; then
     echo -n "Installing prerequisites"

@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # this script fetches smartkiosk-mkb code and rubygems prerequisites,
-# assemples smartkiosk.tar.gz and copies it to buld host
+# assembles smartkiosk.tar.gz and copies it to buld host
 #
 
 echo -n "Cleaning things up..."
