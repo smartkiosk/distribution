@@ -30,7 +30,7 @@ echo '"' >> /root/assembler/gems.list
 echo "OK"
 
 echo -n "Compressing smartkiosk.tar.gz..."
-cd /root/assembler; tar czf ../smartguard.tar.gz .
+cd /root/assembler; tar czf ../smartkiosk.tar.gz .
 echo "OK"
 
 echo "Copying smartkiosk.tar.gz to build host:"
