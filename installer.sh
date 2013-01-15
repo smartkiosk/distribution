@@ -216,6 +216,7 @@ fi
 
 rm -rf /home/terminal/www/smartkiosk-mkb/head/config/services
 mkdir -p /home/terminal/www/smartkiosk-mkb/head/tmp/pids
+mkdir -p /home/terminal/www/smartkiosk-mkb/head/log
 mkdir -p /home/terminal/www/smartkiosk-mkb/shared/uploads
 mkdir -p /home/terminal/www/smartkiosk-mkb/shared/config
 ln -s /home/terminal/www/smartkiosk-mkb/head /home/terminal/www/smartkiosk-mkb/current
@@ -304,7 +305,6 @@ host all all 127.0.0.1/32 md5
 host all all ::1/128 md5
 EOF
     service postgresql start > /dev/null 2>&1
-    service smartguard start > /dev/null 2>&1
     echo "OK"
 else
     echo "Starting services:"
@@ -317,7 +317,6 @@ host all all 127.0.0.1/32 md5
 host all all ::1/128 md5
 EOF
     service postgresql start
-    service smartguard start
 fi
 
 if ! "$VB"; then
