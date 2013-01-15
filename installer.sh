@@ -117,17 +117,16 @@ if ! "$VB"; then
     cd $TMPD/rpms
     for i in $RPMS; do
         rpm -U --nodeps --nosignature $i*.rpm > /dev/null 2>&1
-		echo -n "."
-	done
+        echo -n "."
+    done
     chkconfig nginx on
     chkconfig redis on
     chkconfig postgresql on
     cd $TMPD/gems
     for i in $GEMS; do
         gem install $i*.gem --local --no-rdoc --no-ri > /dev/null 2>&1
-        ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
-		echo -n "."
-	done
+        echo -n "."
+    done
     mkdir /usr/share/cups/model/Custom
     cp $TMPD/printer/TG2480-H.ppd.gz /usr/share/cups/model/Custom
     cp $TMPD/printer/rastertotg2480H /usr/lib/cups/filter
@@ -144,7 +143,6 @@ else
     cd $TMPD/gems
     for i in $GEMS; do
         gem install $i*.gem --local --no-rdoc --no-ri
-        ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
     done
     mkdir /usr/share/cups/model/Custom
     cp $TMPD/printer/TG2480-H.ppd.gz /usr/share/cups/model/Custom
@@ -160,17 +158,13 @@ if ! "$VB"; then
     echo -n "Configuring printer..."
     service cups restart > /dev/null 2>&1
     lpadmin -p TG2480-H -P /usr/share/cups/model/Custom/TG2480-H.ppd.gz -E -v serial:/dev/ttyS4?baud=115200
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
     lpadmin -d TG2480-H
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
     echo "OK"
 else
     echo "Configuring printer:"
     service cups restart
     lpadmin -p TG2480-H -P /usr/share/cups/model/Custom/TG2480-H.ppd.gz -E -v serial:/dev/ttyS4?baud=115200
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
     lpadmin -d TG2480-H
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
 fi
 
 echo << EOF > /etc/ppp/options
@@ -187,18 +181,15 @@ if [ -z "`grep "10.0.222.222" /etc/resolv.conf`" ]; then echo "nameserver 10.0.2
 if [ -z "`grep terminal /etc/passwd`" ]; then
     echo -n "Creating terminal user..."
     useradd -G dialout,lock terminal
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
     echo "OK"
 else
     if [ -z "`grep dialout /etc/group | grep terminal`" ]; then
         if $VB; then echo "Adding terminal user to dialout group"; fi
         usermod -a -G dialout terminal
-        ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
     fi
     if [ -z "`grep lock /etc/group | grep terminal`" ]; then
         if $VB; then echo "Adding terminal user to lock group"; fi
         usermod -a -G lock terminal
-        ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
     fi
 fi
 
@@ -206,9 +197,9 @@ cp $TMPD/.xinitrc /home/terminal
 chown terminal:terminal /home/terminal/.xinitrc
 
 if ! "$VB"; then
-	cp -R $TMPD/kioskui /home/terminal
+    cp -R $TMPD/kioskui /home/terminal
 else
-	cp -Rv $TMPD/kioskui /home/terminal
+    cp -Rv $TMPD/kioskui /home/terminal
 fi;
 chown -R terminal:terminal /home/terminal/kioskui
 
@@ -217,12 +208,10 @@ if "$VB"; then grep terminal /etc/group; fi
 if ! "$VB"; then
     echo -n "Installing Smartkiosk..."
     mkdir -p /home/terminal/www/smartkiosk-mkb/head; cp -dfPR $TMPD/smartkiosk-mkb/* /home/terminal/www/smartkiosk-mkb/head
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
     echo "OK"
 else
     echo "Installing Smartkiosk:"
     mkdir -p /home/terminal/www/smartkiosk-mkb/head; cp -dfPRv $TMPD/smartkiosk-mkb/* /home/terminal/www/smartkiosk-mkb/head
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
 fi
 
 rm -rf /home/terminal/www/smartkiosk-mkb/head/config/services
@@ -305,40 +294,30 @@ sed --in-place 's/user  nginx/user  terminal/' /etc/nginx/nginx.conf
 sed --in-place 's,/etc/nginx/conf.d/\*\.conf,/home/terminal/www/smartkiosk-mkb/current/nginx\.conf,' /etc/nginx/nginx.conf
 
 if ! "$VB"; then
-	echo -n "Starting services..."
+    echo -n "Starting services..."
     service redis start > /dev/null 2>&1
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
     service nginx start > /dev/null 2>&1
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
-	service postgresql initdb > /dev/null 2>&1
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
+    service postgresql initdb > /dev/null 2>&1
 cat << EOF > /var/lib/pgsql/data/pg_hba.conf
 local all all ident
 host all all 127.0.0.1/32 md5
 host all all ::1/128 md5
 EOF
-	service postgresql start > /dev/null 2>&1
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
-	service smartguard start > /dev/null 2>&1
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
-	echo "OK"
+    service postgresql start > /dev/null 2>&1
+    service smartguard start > /dev/null 2>&1
+    echo "OK"
 else
-	echo "Starting services:"
+    echo "Starting services:"
     service redis start
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
     service nginx start
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
-	service postgresql initdb
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
+    service postgresql initdb
 cat << EOF > /var/lib/pgsql/data/pg_hba.conf
 local all all ident
 host all all 127.0.0.1/32 md5
 host all all ::1/128 md5
 EOF
-	service postgresql start
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
-	service smartguard start
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
+    service postgresql start
+    service smartguard start
 fi
 
 if ! "$VB"; then
@@ -357,23 +336,17 @@ fi
 if ! "$VB"; then
     echo -n "Populating database (takes about 10 minutes)..."
     cd /home/terminal/www/smartkiosk-mkb/current
-	sudo -u terminal bundle install --local > /dev/null 2>&1
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
+    sudo -u terminal bundle install --local > /dev/null 2>&1
     sudo -u terminal bundle exec rake db:install RAILS_ENV=production > /dev/null 2>&1
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
     sudo -u terminal bundle exec rake assets:precompile RAILS_ENV=production > /dev/null 2>&1
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
     echo "OK"
 
 else
     echo "Populating database:"
     cd /home/terminal/www/smartkiosk-mkb/current
-	sudo -u terminal bundle install --local
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
+    sudo -u terminal bundle install --local
     sudo -u terminal bundle exec rake db:install RAILS_ENV=production
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
     sudo -u terminal bundle exec rake assets:precompile RAILS_ENV=production
-    ER=$?; if [ "$ER" -ne 0 ] && ! "$FC"; then echo $EM; rm -rf $TMPD; exit $ER; fi
 fi
 
 rm -rf $TMPD
