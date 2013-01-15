@@ -31,6 +31,7 @@ urw-fonts \
 xorg-x11-font-utils \
 ghostscript-fonts \
 ghostscript-8.70 \
+libusb1 \
 cmuxcontrold \
 libpcap \
 ppp \
