@@ -227,7 +227,7 @@ ln -s /home/terminal/www/smartkiosk-mkb/shared/config /home/terminal/www/smartki
 
 cat << EOF > /home/terminal/www/smartkiosk-mkb/shared/config/application.yml
 keyword: SAD6
-host: http://admin.smartkiosk-mkb.rdlk.biz
+host: http://kiosk-app
 smartguard_host: druby://localhost:10000
 EOF
 cat << EOF > /home/terminal/www/smartkiosk-mkb/shared/config/database.yml
@@ -243,19 +243,30 @@ production:
   pool: 30
 EOF
 cat << EOF > /home/terminal/www/smartkiosk-mkb/shared/config/smartware.yml
-cash_acceptor_port: /dev/ttyS0
-cash_acceptor_driver: CCNET
-printer_port: /dev/ttyS4
-printer_driver: TG24XX
-modem_driver: Standard
-modem_config:
-  device: /dev/ttyS1
-  status_channel: 1
-  ppp_channel: 2
-  poll_interval: 2
-  balance_interval: 300
-  balance_ussd: "*100#"
-  apn: "internet.mts.ru"
+interfaces:
+  - name: CashAcceptor
+    uri: druby://localhost:6001
+    driver: CCNET
+    port: /dev/ttyS0
+  - name: Modem
+    uri: druby://localhost:6002
+    driver: Standard
+    device: /dev/ttyS1
+    status_channel: 1
+    ppp_channel: 2
+    poll_interval: 2
+    balance_interval: 300
+    balance_ussd: "*100#"
+    apn: "internet.mts.ru"
+  - name: Watchdog
+    uri: druby://localhost:6003
+    driver: WatchdogDaemon
+    pidfile: /var/run/watchdogd.pid
+  - name: Printer
+    uri: druby://localhost:6005
+    driver: EscPos
+    port: /dev/ttyS4
+    connection_timeout: 60
 EOF
 
 chown -R terminal:terminal /home/terminal/www
