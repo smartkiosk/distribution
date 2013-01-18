@@ -19,18 +19,6 @@ libyaml \
 ruby \
 redis \
 nodejs \
-lcms-libs \
-openjpeg-libs \
-poppler-data \
-poppler-0.12.4 \
-poppler-utils \
-tmpwatch \
-portreserve \
-cups \
-urw-fonts \
-xorg-x11-font-utils \
-ghostscript-fonts \
-ghostscript-8.70 \
 libusb1 \
 watchdogd \
 cmuxcontrold \
@@ -129,9 +117,6 @@ if ! "$VB"; then
         gem install $i*.gem --local --no-rdoc --no-ri > /dev/null 2>&1
         echo -n "."
     done
-    mkdir /usr/share/cups/model/Custom
-    cp $TMPD/printer/TG2480-H.ppd.gz /usr/share/cups/model/Custom
-    cp $TMPD/printer/rastertotg2480H /usr/lib/cups/filter
     echo "OK"
 else
     echo "Installing prerequisites:"
@@ -146,27 +131,11 @@ else
     for i in $GEMS; do
         gem install $i*.gem --local --no-rdoc --no-ri
     done
-    mkdir /usr/share/cups/model/Custom
-    cp $TMPD/printer/TG2480-H.ppd.gz /usr/share/cups/model/Custom
-    cp $TMPD/printer/rastertotg2480H /usr/lib/cups/filter
 fi
 
 if "$PR"; then
     rm -rf $TMPD
     exit 0
-fi
-
-if ! "$VB"; then
-    echo -n "Configuring printer..."
-    service cups restart > /dev/null 2>&1
-    lpadmin -p TG2480-H -P /usr/share/cups/model/Custom/TG2480-H.ppd.gz -E -v serial:/dev/ttyS4?baud=115200
-    lpadmin -d TG2480-H
-    echo "OK"
-else
-    echo "Configuring printer:"
-    service cups restart
-    lpadmin -p TG2480-H -P /usr/share/cups/model/Custom/TG2480-H.ppd.gz -E -v serial:/dev/ttyS4?baud=115200
-    lpadmin -d TG2480-H
 fi
 
 echo << EOF > /etc/ppp/options
