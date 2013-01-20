@@ -164,6 +164,7 @@ else
     fi
 fi
 
+cp $TMPD/xwd /usr/bin
 cp $TMPD/.xinitrc /home/terminal
 chown terminal:terminal /home/terminal/.xinitrc
 
