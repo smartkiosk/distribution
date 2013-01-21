@@ -221,7 +221,7 @@ interfaces:
   - name: Modem
     uri: druby://localhost:6002
     driver: Standard
-    device: /dev/ttyS1
+    port: /dev/ttyS1
     status_channel: 1
     ppp_channel: 2
     poll_interval: 2
