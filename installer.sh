@@ -236,7 +236,7 @@ interfaces:
     uri: druby://localhost:6005
     driver: EscPos
     port: /dev/ttyS4
-    connection_timeout: 60
+connection_timeout: 60
 EOF
 
 chown -R terminal:terminal /home/terminal/www
