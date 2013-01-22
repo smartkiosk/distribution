@@ -246,7 +246,7 @@ cat << EOF > /etc/rc.d/init.d/smartguard
 # chkconfig: - 99 01
 ### BEGIN INIT INFO
 # Provides: smartguard
-# Required-Start: \$local_fs \$syslog
+# Required-Start: \$all
 # Required-Stop: \$local_fs \$syslog
 # Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
