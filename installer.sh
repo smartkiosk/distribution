@@ -214,28 +214,32 @@ production:
 EOF
 cat << EOF > /home/terminal/www/smartkiosk-mkb/shared/config/smartware.yml
 interfaces:
-  - name: CashAcceptor
-    uri: druby://localhost:6001
-    driver: CCNET
-    port: /dev/ttyS0
-  - name: Modem
-    uri: druby://localhost:6002
-    driver: Standard
-    port: /dev/ttyS1
-    status_channel: 1
-    ppp_channel: 2
-    poll_interval: 2
-    balance_interval: 300
-    balance_ussd: "*100#"
-    apn: "internet.mts.ru"
-  - name: Watchdog
-    uri: druby://localhost:6003
-    driver: WatchdogDaemon
-    pidfile: /var/run/watchdogd.pid
-  - name: Printer
-    uri: druby://localhost:6005
-    driver: EscPos
-    port: /dev/ttyS4
+- name: CashAcceptor
+  uri: druby://localhost:6001
+  driver: CCNET
+  port: /dev/ttyS0
+- name: Modem
+  uri: druby://localhost:6002
+  status_channel: 1
+  ppp_channel: 2
+  poll_interval: 2
+  balance_interval: 300
+  driver: Standard
+  port: /dev/ttyS1
+  apn: internet.mts.ru
+  balance_ussd: ! '*100#'
+- name: Watchdog
+  uri: druby://localhost:6003
+  pidfile: /var/run/watchdogd.pid
+  driver: WatchdogDaemon
+- name: CardReader
+  uri: druby://localhost:6004
+  port: /dev/ttyS2
+  driver: ICT3K5
+- name: Printer
+  uri: druby://localhost:6005
+  driver: EscPos
+  port: /dev/ttyS4
 connection_timeout: 60
 EOF
 
