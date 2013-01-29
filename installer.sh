@@ -15,6 +15,72 @@ gcc-4.4.6 \
 libstdc++-devel \
 gcc-c++ \
 make \
+erlang-kernel-R14B \
+erlang-syntax_tools-R14B \
+erlang-erts-R14B \
+erlang-stdlib-R14B \
+erlang-crypto-R14B \
+erlang-hipe-R14B \
+erlang-compiler-R14B \
+erlang-mnesia-R14B \
+erlang-xmerl-R14B \
+erlang-runtime_tools-R14B \
+erlang-snmp-R14B \
+erlang-public_key-R14B \
+erlang-ssl-R14B \
+erlang-inets-R14B \
+erlang-orber-R14B \
+erlang-cosEvent-R14B \
+wxBase \
+erlang-cosTime-R14B \
+erlang-cosNotification-R14B \
+erlang-cosProperty-R14B \
+erlang-edoc-R14B \
+erlang-ssh-R14B \
+erlang-otp_mibs-R14B \
+erlang-docbuilder-R14B \
+erlang-cosFileTransfer-R14B \
+erlang-cosEventDomain-R14B \
+erlang-cosTransactions-R14B \
+erlang-percept-R14B \
+erlang-inviso-R14B \
+erlang-ic-R14B \
+erlang-diameter-R14B \
+erlang-parsetools-R14B \
+erlang-eunit-R14B \
+erlang-jinterface-R14B \
+erlang-erl_docgen-R14B \
+erlang-asn1-R14B \
+erlang-erl_interface-R14B \
+unixODBC \
+erlang-odbc-R14B \
+SDL \
+wxGTK-2.8.12 \
+wxGTK-gl \
+erlang-wx-R14B \
+tcl \
+tk \
+erlang-gs-R14B \
+erlang-debugger-R14B \
+erlang-et-R14B \
+erlang-observer-R14B \
+erlang-webtool-R14B \
+erlang-pman-R14B \
+erlang-tv-R14B \
+erlang-toolbar-R14B \
+erlang-appmon-R14B \
+erlang-tools-R14B \
+erlang-sasl-R14B \
+erlang-test_server-R14B \
+erlang-dialyzer-R14B \
+erlang-common_test-R14B \
+erlang-reltool-R14B \
+erlang-typer-R14B \
+erlang-os_mon-R14B \
+erlang-megaco-R14B \
+erlang-examples-R14B \
+erlang-R14B \
+rabbitmq-server \
 libyaml \
 ruby \
 redis \
@@ -109,6 +175,7 @@ if ! "$VB"; then
         rpm -U --nodeps --nosignature $i*.rpm > /dev/null 2>&1
         echo -n "."
     done
+    chkconfig rabbitmq-server on
     chkconfig nginx on
     chkconfig redis on
     chkconfig postgresql on
@@ -124,6 +191,7 @@ else
     for i in $RPMS; do
         rpm -Uvh --nodeps --nosignature $i*.rpm
     done
+    chkconfig rabbitmq-server on
     chkconfig nginx on
     chkconfig redis on
     chkconfig postgresql on
@@ -323,16 +391,14 @@ if ! "$VB"; then
     echo -n "Populating database (takes about 10 minutes)..."
     cd /home/terminal/www/smartkiosk-mkb/current
     sudo -u terminal bundle install --local > /dev/null 2>&1
-    sudo -u terminal bundle exec rake db:install RAILS_ENV=production > /dev/null 2>&1
-    sudo -u terminal bundle exec rake assets:precompile RAILS_ENV=production > /dev/null 2>&1
+    sudo -u terminal bundle exec rake db:install RACK_ENV=production > /dev/null 2>&1
     echo "OK"
 
 else
     echo "Populating database:"
     cd /home/terminal/www/smartkiosk-mkb/current
     sudo -u terminal bundle install --local
-    sudo -u terminal bundle exec rake db:install RAILS_ENV=production
-    sudo -u terminal bundle exec rake assets:precompile RAILS_ENV=production
+    sudo -u terminal bundle exec rake db:install RACK_ENV=production
 fi
 
 rm -rf $TMPD
