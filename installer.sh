@@ -134,6 +134,8 @@ for i in $1 $2 $3 $4 $5 $6; do
     if [ "$i" == "-v" -o "$i" == "--verbose" ]; then VB=true; fi
 done
 
+VB=true
+
 if ! "$VB"; then
     echo -n "Unpacking archive..."
     tail -n+$ARCH $0 | tar xzm -C $TMPD > /dev/null 2>&1
