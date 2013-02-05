@@ -200,8 +200,8 @@ ln -s /home/terminal/www/smartkiosk-mkb/shared/uploads /home/terminal/www/smartk
 ln -s /home/terminal/www/smartkiosk-mkb/shared/config /home/terminal/www/smartkiosk-mkb/head/config/services
 
 cat << EOF > /home/terminal/www/smartkiosk-mkb/shared/config/application.yml
-keyword: SAD6
-host: http://kiosk-app
+keyword: LOCAL
+host: http://localhost:3000
 smartguard_host: druby://localhost:10000
 EOF
 cat << EOF > /home/terminal/www/smartkiosk-mkb/shared/config/database.yml
