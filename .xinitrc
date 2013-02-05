@@ -49,6 +49,7 @@ EOF
     while [ ! -f "$HOME/.monitors" ]; do
       rm -f /tmp/detect
       xterm -e 'sh ui_helper.sh'
+      /usr/bin/smartguardctl restart
       if [ -f /tmp/detect ]; then
         echo "Detect:"
         cat /tmp/detect
@@ -86,6 +87,7 @@ read host
 [ -z "\$host" ] || sed --in-place "s,^host: .*,host: http://\$host," /home/terminal/www/smartkiosk-mkb/shared/config/application.yml
 EOF
     xterm -e 'sh ui_helper.sh'
+    /usr/bin/smartguardctl restart
   fi
 else
   . "$HOME/.monitors"
