@@ -77,6 +77,15 @@ EOF
 
   else
     mv /tmp/monitors.conf "$HOME/.monitors"
+    cat > ui_helper.sh <<EOF
+echo -n "Please enter keyword for this kiosk [LOCAL]:"
+read keyword
+[ -z "\$keyword" ] || sed --in-place "s,^keyword: .*,keyword: \$keyword," /home/terminal/www/smartkiosk-mkb/shared/config/application.yml
+echo -n "Please enter server address [localhost:3000]:"
+read host
+[ -z "\$host" ] || sed --in-place "s,^host: .*,host: http://\$host," /home/terminal/www/smartkiosk-mkb/shared/config/application.yml
+EOF
+    xterm -e 'sh ui_helper.sh'
   fi
 else
   . "$HOME/.monitors"
