@@ -142,7 +142,7 @@ if "$PR"; then
     exit 0
 fi
 
-echo << EOF > /etc/ppp/options
+cat << EOF > /etc/ppp/options
 noipdefault
 ipcp-accept-local
 ipcp-accept-remote
