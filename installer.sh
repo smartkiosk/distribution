@@ -111,7 +111,7 @@ if ! "$VB"; then
         rpm -U --nodeps --nosignature $i*.rpm > /dev/null 2>&1
         echo -n "."
     done
-    chkconfig rabbitmq-server on
+    chkconfig ntpd off
     chkconfig nginx on
     chkconfig redis on
     chkconfig postgresql on
@@ -127,7 +127,7 @@ else
     for i in $RPMS; do
         rpm -Uvh --nodeps --nosignature $i*.rpm
     done
-    chkconfig rabbitmq-server on
+    chkconfig ntpd off
     chkconfig nginx on
     chkconfig redis on
     chkconfig postgresql on
