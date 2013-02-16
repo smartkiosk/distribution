@@ -150,6 +150,8 @@ defaultroute
 noauth
 EOF
 
+echo "0 0 * * * root killall pppd" >> /etc/crontab
+
 if [ -z "`grep "10.75.0.14" /etc/hosts`" ]; then echo "10.75.0.14 kiosk-app.mcb.ru kiosk-app" >> /etc/hosts; fi
 if [ -z "`grep "10.0.222.222" /etc/resolv.conf`" ]; then echo "nameserver 10.0.222.222" > /etc/resolv.conf; fi
 
