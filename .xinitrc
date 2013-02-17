@@ -38,12 +38,16 @@ echo "Enter 'top' or 'bottom'."
 read line
 echo "\$line" > /tmp/detect
 
-echo -n "Please enter keyword for this kiosk [LOCAL]: "
+app_yml="/home/terminal/www/smartkiosk-mkb/shared/config/application.yml"
+dkeyword=`grep ^keyword "\$app_yml" | cut -d"'" -f 2`
+dhost=`grep ^host "\$app_yml" | cut -d" " -f 2 | sed 's,http://,,'`
+
+echo -n "Please enter keyword for this kiosk ["\$dkeyword"]: "
 read keyword
-[ -z "\$keyword" ] || sed --in-place "s,^keyword: .*,keyword: \$keyword," /home/terminal/www/smartkiosk-mkb/shared/config/application.yml
-echo -n "Please enter server address [localhost:3000]: "
+echo -n "Please enter server address ["\$dhost"]: "
 read host
-[ -z "\$host" ] || sed --in-place "s,^host: .*,host: http://\$host," /home/terminal/www/smartkiosk-mkb/shared/config/application.yml
+[ -z "\$keyword" ] || sed --in-place "s,^keyword: .*,keyword: '\$keyword'," "\$app_yml"
+[ -z "\$host" ] || sed --in-place "s,^host: .*,host: http://\$host," "\$app_yml"
 EOF
 
     while [ ! -f "$HOME/.monitors" ]; do
@@ -79,12 +83,16 @@ EOF
   else
     mv /tmp/monitors.conf "$HOME/.monitors"
     cat > ui_helper.sh <<EOF
-echo -n "Please enter keyword for this kiosk [LOCAL]: "
+app_yml="/home/terminal/www/smartkiosk-mkb/shared/config/application.yml"
+dkeyword=`grep ^keyword "\$app_yml" | cut -d"'" -f 2`
+dhost=`grep ^host "\$app_yml" | cut -d" " -f 2 | sed 's,http://,,'`
+
+echo -n "Please enter keyword for this kiosk ["\$dkeyword"]: "
 read keyword
-[ -z "\$keyword" ] || sed --in-place "s,^keyword: .*,keyword: \$keyword," /home/terminal/www/smartkiosk-mkb/shared/config/application.yml
-echo -n "Please enter server address [localhost:3000]: "
+echo -n "Please enter server address ["\$dhost"]: "
 read host
-[ -z "\$host" ] || sed --in-place "s,^host: .*,host: http://\$host," /home/terminal/www/smartkiosk-mkb/shared/config/application.yml
+[ -z "\$keyword" ] || sed --in-place "s,^keyword: .*,keyword: '\$keyword'," "\$app_yml"
+[ -z "\$host" ] || sed --in-place "s,^host: .*,host: http://\$host," "\$app_yml"
 EOF
     xterm -e 'sh ui_helper.sh'
     /usr/bin/smartguardctl restart
