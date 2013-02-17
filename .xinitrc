@@ -39,8 +39,8 @@ read line
 echo "\$line" > /tmp/detect
 
 app_yml="/home/terminal/www/smartkiosk-mkb/shared/config/application.yml"
-dkeyword=\`grep ^keyword "\$app_yml" | cut -d"'" -f 2\`
-dhost=\`grep ^host "\$app_yml" | cut -d" " -f 2 | sed 's,http://,,'\`
+dkeyword=\$(grep ^keyword "\$app_yml" | cut -d"'" -f 2)
+dhost=\$(grep ^host "\$app_yml" | cut -d" " -f 2 | sed 's,http://,,')
 
 echo -n "Please enter keyword for this kiosk ["\$dkeyword"]: "
 read keyword
@@ -84,8 +84,8 @@ EOF
     mv /tmp/monitors.conf "$HOME/.monitors"
     cat > ui_helper.sh <<EOF
 app_yml="/home/terminal/www/smartkiosk-mkb/shared/config/application.yml"
-dkeyword=\`grep ^keyword "\$app_yml" | cut -d"'" -f 2\`
-dhost=\`grep ^host "\$app_yml" | cut -d" " -f 2 | sed 's,http://,,'\`
+dkeyword=$(grep ^keyword "\$app_yml" | cut -d"'" -f 2)
+dhost=$(grep ^host "\$app_yml" | cut -d" " -f 2 | sed 's,http://,,')
 
 echo -n "Please enter keyword for this kiosk ["\$dkeyword"]: "
 read keyword
