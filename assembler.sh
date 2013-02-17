@@ -16,7 +16,6 @@ echo "OK"
 
 echo "Fetching recent smartkiosk-mkb code:"
 cd /root/assembler; git clone git@github.com:roundlake/smartkiosk-client-mkb.git; mv smartkiosk-client-mkb smartkiosk-mkb
-cp -R /root/banners /root/assembler/smartkiosk-mkb/public
 
 echo "Collecting gems:"
 rpm -Uvh /root/assembler/rpms/ruby*.rpm
