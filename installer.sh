@@ -181,20 +181,23 @@ chown -R terminal:terminal /home/terminal/kioskui
 
 if "$VB"; then grep terminal /etc/group; fi
 
+mkdir -p /home/terminal/www/smartkiosk-mkb/shared/uploads
+mkdir -p /home/terminal/www/smartkiosk-mkb/shared/config
+
 if ! "$VB"; then
     echo -n "Installing Smartkiosk..."
     mkdir -p /home/terminal/www/smartkiosk-mkb/head; cp -dfPR $TMPD/smartkiosk-mkb/* /home/terminal/www/smartkiosk-mkb/head
+    cp -R $TMPD/banners /home/terminal/www/smartkiosk-mkb/shared/uploads
     echo "OK"
 else
     echo "Installing Smartkiosk:"
     mkdir -p /home/terminal/www/smartkiosk-mkb/head; cp -dfPRv $TMPD/smartkiosk-mkb/* /home/terminal/www/smartkiosk-mkb/head
+    cp -Rv $TMPD/banners /home/terminal/www/smartkiosk-mkb/shared/uploads
 fi
 
 rm -rf /home/terminal/www/smartkiosk-mkb/head/config/services
 mkdir -p /home/terminal/www/smartkiosk-mkb/head/tmp/pids
 mkdir -p /home/terminal/www/smartkiosk-mkb/head/log
-mkdir -p /home/terminal/www/smartkiosk-mkb/shared/uploads
-mkdir -p /home/terminal/www/smartkiosk-mkb/shared/config
 ln -s /home/terminal/www/smartkiosk-mkb/head /home/terminal/www/smartkiosk-mkb/current
 ln -s /home/terminal/www/smartkiosk-mkb/shared/uploads /home/terminal/www/smartkiosk-mkb/head/public
 ln -s /home/terminal/www/smartkiosk-mkb/shared/config /home/terminal/www/smartkiosk-mkb/head/config/services
@@ -217,6 +220,8 @@ production:
   pool: 30
 EOF
 cat << EOF > /home/terminal/www/smartkiosk-mkb/shared/config/smartware.yml
+---
+connection_timeout: '60'
 interfaces:
 - name: CashAcceptor
   uri: druby://localhost:6001
@@ -224,13 +229,13 @@ interfaces:
   port: /dev/ttyS0
 - name: Modem
   uri: druby://localhost:6002
-  status_channel: 1
-  ppp_channel: 2
-  poll_interval: 2
-  balance_interval: 300
+  status_channel: '1'
+  ppp_channel: '2'
+  poll_interval: '2'
+  balance_interval: '300'
   driver: Standard
   port: /dev/ttyS1
-  apn: internet.mts.ru
+  apn: lag202.msk
   balance_ussd: ! '*100#'
 - name: Watchdog
   uri: druby://localhost:6003
@@ -238,13 +243,17 @@ interfaces:
   driver: WatchdogDaemon
 - name: CardReader
   uri: druby://localhost:6004
-  port: /dev/ttyS2
   driver: ICT3K5
+  port: /dev/ttyS2
 - name: Printer
   uri: druby://localhost:6005
   driver: EscPos
   port: /dev/ttyS4
-connection_timeout: 60
+- name: UserInterface
+  uri: druby://localhost:6007
+  driver: X11
+  user: terminal
+  display: ':0'
 EOF
 
 chown -R terminal:terminal /home/terminal/www
